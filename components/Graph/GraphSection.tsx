@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Chart from "chart.js/auto";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const GraphSection = () => {
   interface SentimentData {
@@ -61,6 +63,13 @@ const GraphSection = () => {
       .catch((error) =>
         console.error("Error fetching sub-aspect data:", error)
       );
+  }, []);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // Durasi animasi dalam milidetik
+      once: true, // Animasi hanya berjalan sekali saat di-scroll
+    });
   }, []);
 
   useEffect(() => {
@@ -302,7 +311,7 @@ const GraphSection = () => {
   return (
     <>
       {/* Grafik Utama */}
-      <div className="row mb-4">
+      <div className="row mb-4" data-aos="fade-up">
         <h2 className="section-title mb-4 text-2xl font-bold text-gray-800 mb-4">
           Analisis Sentimen terhadap Aspek Pekerjaan
         </h2>
@@ -312,7 +321,7 @@ const GraphSection = () => {
       </div>
 
       {/* Grafik Sub-Aspek */}
-      <div className="row mb-4 ">
+      <div className="row mb-4" data-aos="fade-up">
         <div className="col-md-12">
           <canvas id="sub-aspect-chart"></canvas>
         </div>
@@ -320,7 +329,7 @@ const GraphSection = () => {
 
       {/* Komentar Terkait */}
       {selectedKeyword && (
-        <section className="row mb-4">
+        <section className="row mb-4" data-aos="fade-up">
           <div className="col-md-12">
             <div
               className={`bg-white shadow-lg rounded-lg overflow-hidden ${
